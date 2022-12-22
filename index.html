@@ -26,7 +26,7 @@ let wsc;
 $(document).ready(function()  {
     if ("WebSocket" in window) {
         // init the websocket client
-        wsc = new WebSocket("ws://www.aeplus.com.tw:8011/notify");
+        wsc = new WebSocket("wss://www.aeplus.com.tw:8011/notify");
 
         wsc.onopen = function () {
             console.log("connected");
