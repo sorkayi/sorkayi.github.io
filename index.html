@@ -1,7 +1,93 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="utf-8" />
+    <title>WebSocket DEMO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        ul,
+        li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+    </style>
+    <!-- <script src="Scripts/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+    <input id="ipt_keyin" />
 </body>
+
+<script>
+
+let wsc;
+
+$(document).ready(function()  {
+    if ("WebSocket" in window) {
+        // init the websocket client
+        wsc = new WebSocket("ws://www.aeplus.com.tw:8011/notify");
+
+        wsc.onopen = function () {
+            console.log("connected");
+            var aryData = [];
+            for (var di = 0; di < 500; di++)  {
+                aryData.push({"sID":782321,
+                                "Area":"M301",
+                                "Stock":"1007",
+                                "StockName":"",
+                                "StockSpace":"CDD03",
+                                "WorkOrderNo":"",
+                                "MaterialNo":"77900000031",
+                                "MaterialName":"&雞清油(微凍)",
+                                "Unit":"KG",
+                                "ManufactureDate":"2022-12-02T00:00:00",
+                                "ExpirationDate":"2023-04-30T00:00:00",
+                                "GrossWeight":0,
+                                "NetWeight":0,
+                                "TareWeight":0,
+                                "Qty":18,
+                                "SpecQty":18,
+                                "LotID":"2212023A1",
+                                "PalletCode":"",
+                                "CartonNo":"2022120500076-11",
+                                "wo_id":null,
+                                "po_id":null,
+                                "gr_date":null,
+                                "CartonStatus":"F",
+                                "PickStatus":"",
+                                "Hold":"",
+                                "LmTime":"2022-12-05T13:27:54Z"});
+            }
+
+            // wsc.send(JSON.stringify(aryData));
+
+            // startHeartbeat();
+        };
+        wsc.onclose = function () {
+            console.log("closed");
+        };
+        wsc.onmessage = function (e) {
+            var data = e.data;
+            if (data != 'heartbeat')  {
+                $('Body').append('<p>' + data + '</p>');
+            }
+        };
+
+        function startHeartbeat()  {
+            setInterval(function()  {
+                wsc.send('heartbeat');
+            }, 1000);
+        }
+    }
+
+    $('#ipt_keyin').keyup(function(evt)  {
+        if (evt.keyCode == 13)  {
+            wsc.send($('#ipt_keyin').val());
+            $('#ipt_keyin').val('');
+        }
+    });
+});
+    
+</script>
 </html>
