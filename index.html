@@ -30,36 +30,7 @@ $(document).ready(function()  {
 
         wsc.onopen = function () {
             console.log("connected");
-            var aryData = [];
-            for (var di = 0; di < 500; di++)  {
-                aryData.push({"sID":782321,
-                                "Area":"M301",
-                                "Stock":"1007",
-                                "StockName":"",
-                                "StockSpace":"CDD03",
-                                "WorkOrderNo":"",
-                                "MaterialNo":"77900000031",
-                                "MaterialName":"&雞清油(微凍)",
-                                "Unit":"KG",
-                                "ManufactureDate":"2022-12-02T00:00:00",
-                                "ExpirationDate":"2023-04-30T00:00:00",
-                                "GrossWeight":0,
-                                "NetWeight":0,
-                                "TareWeight":0,
-                                "Qty":18,
-                                "SpecQty":18,
-                                "LotID":"2212023A1",
-                                "PalletCode":"",
-                                "CartonNo":"2022120500076-11",
-                                "wo_id":null,
-                                "po_id":null,
-                                "gr_date":null,
-                                "CartonStatus":"F",
-                                "PickStatus":"",
-                                "Hold":"",
-                                "LmTime":"2022-12-05T13:27:54Z"});
-            }
-
+            
             // wsc.send(JSON.stringify(aryData));
 
             // startHeartbeat();
